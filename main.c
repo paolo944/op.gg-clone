@@ -10,7 +10,13 @@ int main(int argc, char *argv[]){
 
     char *puuid = afficher_profile(argv[1]);
 
-    char **games = NULL;
+    char **games = (char**)malloc(sizeof(char*));
+
+    if(games == NULL){
+        fprintf(stderr, "erreur d'allocation\n");
+        return 1;
+    }
+
     int taille = get_game_history(puuid, &games);
 
     if(games == NULL)
@@ -21,9 +27,11 @@ int main(int argc, char *argv[]){
     for(int i=0; i < taille; i++){
         if(games[i] == NULL)
             printf("c'est null\n");
-        else
+        else{
             printf("ici i=%d\n", i);
             printf("game %d: %s\n", i, games[i]);
+            printf("sizeof *games[%d] %p: %ld\n",i ,games[i], sizeof(*games[i]));
+        }
     }
 
     return 0;

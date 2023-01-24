@@ -1,14 +1,9 @@
 #include "profile.h"
 
-#define URL_FORMAT   "https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/"
-#define URL_SIZE     256
-#define API          "?api_key=RGAPI-60599a0b-5450-4b71-8e5a-09af3b36eb40"
-
-
 char *afficher_profile(const char *nom){
 
     char *text;
-    char url[URL_SIZE];
+    char url[URL_SIZE] = "";
 
     json_t *root;
     json_error_t error;
@@ -90,7 +85,7 @@ char *afficher_profile(const char *nom){
     printf("puuid: %s\nicone de profil: %lld\n", json_string_value(puuid), json_integer_value(profileIconId));
     printf("id: %s\naccount id: %s  \n", json_string_value(id), json_string_value(accountId));
 
-    char *puuid_str = (char*)(malloc(sizeof(char)*strlen(json_string_value(puuid))));
+    char *puuid_str = (char*)(malloc(sizeof(char)*(strlen(json_string_value(puuid)) + 1)));
     strcpy(puuid_str, json_string_value(puuid));
 
     json_decref(root);

@@ -1,7 +1,7 @@
 #include "game_history.h"
 
 int get_game_history(char *puuid, char ***games){
-    char url[URL_SIZE];
+    char url[URL_SIZE] = "";
 
     json_t *root;
     json_error_t error;
@@ -33,21 +33,33 @@ int get_game_history(char *puuid, char ***games){
 
     int taille = json_array_size(root);
 
-    *games = (char**)(malloc(sizeof(char*)*taille));
+    char **tmp = (char**)realloc(*games, taille*sizeof(char*));
 
-    if(*games == NULL){
+    if(tmp == NULL){
         fprintf(stderr, "erreur d'allocation\n");
+        free(tmp);
         return -1;
     }
 
-    printf("taille games: %d\n", taille);
+
+    for (int i = 0; i < taille; i++){
+        tmp[i] = (char*)malloc(16);
+        if(tmp[i] == NULL){
+            fprintf(stderr, "erreur d'allocation\n");
+            return -1;
+        }
+        printf("sizeof tmp[%d] %p: %ld\n",i ,&tmp[i], sizeof(tmp[i]));
+        //printf("sizeof *games[%d] %p: %ld\n",i ,games[i], sizeof(*games[i]));
+    }
 
     for(int i=0; i<taille; i++){
-        *games[i] = json_string_value(json_array_get(root, i));
-        if(*games[i] == NULL)
+        tmp[i] = json_string_value(json_array_get(root, i));
+        if(tmp[i] == NULL)
             printf("c'est null\n");
-        printf("%s\n", (*games[i]));
+        printf("%s\n", (tmp[i]));
     }
+
+    *games = tmp;
 
     json_decref(root);
 

@@ -1,11 +1,6 @@
 #include "request.h"
 
-#define URL_FORMAT   "https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/"
-#define URL_SIZE     256
-#define API          "?api_key=RGAPI-60599a0b-5450-4b71-8e5a-09af3b36eb40"
-
- 
-static size_t WriteMemoryCallback(void *contents, size_t size, size_t nmemb, void *userp){
+size_t WriteMemoryCallback(void *contents, size_t size, size_t nmemb, void *userp){
   size_t realsize = size * nmemb;
   struct MemoryStruct *mem = (struct MemoryStruct *)userp;
  
