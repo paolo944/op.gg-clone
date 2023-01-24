@@ -8,6 +8,7 @@ int get_game_history(char *puuid, char ***games){
 
     strcat(url, URL_FORMAT);
     strcat(url, puuid);
+    strcat(url, API_H);
     strcat(url, API);
 
     char *text = request(&url);

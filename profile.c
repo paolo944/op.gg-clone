@@ -10,6 +10,7 @@ char *afficher_profile(const char *nom){
 
     strcat(url, URL_FORMAT);
     strcat(url, nom);
+    strcat(url, API_H);
     strcat(url, API);
 
     text = request(&url);
