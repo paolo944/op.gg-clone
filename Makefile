@@ -9,13 +9,13 @@ $(BIN): 	main.o profile.o request.o game_history.o
 main.o:		main.c profile.h 
 	gcc $(CFLAGS) -c main.c
 
-profile.o:	profile.h request.h
+profile.o:	profile.c profile.h request.h
 	gcc $(CFLAGS) -c profile.c
 
-game_history.o:	game_history.h request.h
+game_history.o:	game_history.c game_history.h request.h
 	gcc $(CFLAGS) -c game_history.c
 
-request.o:	request.h
+request.o:	request.c request.h
 	gcc $(CFLAGS) -c request.c
 
 clean:

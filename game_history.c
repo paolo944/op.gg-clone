@@ -1,6 +1,6 @@
 #include "game_history.h"
 
-int get_game_history(char *puuid, const char **games){
+int get_game_history(char *puuid, char ***games){
     char url[URL_SIZE];
 
     json_t *root;
@@ -33,15 +33,20 @@ int get_game_history(char *puuid, const char **games){
 
     int taille = json_array_size(root);
 
-    games = (const char**)(malloc(sizeof(const char*)*taille));
+    *games = (char**)(malloc(sizeof(char*)*taille));
 
-    if(games == NULL){
+    if(*games == NULL){
         fprintf(stderr, "erreur d'allocation\n");
         return -1;
     }
 
+    printf("taille games: %d\n", taille);
+
     for(int i=0; i<taille; i++){
-        games[i] = json_string_value(json_array_get(root, i));
+        *games[i] = json_string_value(json_array_get(root, i));
+        if(*games[i] == NULL)
+            printf("c'est null\n");
+        printf("%s\n", (*games[i]));
     }
 
     json_decref(root);

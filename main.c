@@ -10,13 +10,20 @@ int main(int argc, char *argv[]){
 
     char *puuid = afficher_profile(argv[1]);
 
-    const char **games = NULL;
-    int taille = get_game_history(puuid, games);
+    char **games = NULL;
+    int taille = get_game_history(puuid, &games);
+
+    if(games == NULL)
+        printf("c'est null\n");
 
     printf("games number: %d\n", taille);
     
     for(int i=0; i < taille; i++){
-        printf("game %d: %s\n", i, games[i]);
+        if(games[i] == NULL)
+            printf("c'est null\n");
+        else
+            printf("ici i=%d\n", i);
+            printf("game %d: %s\n", i, games[i]);
     }
 
     return 0;
