@@ -3,6 +3,15 @@ BIN=exe
 
 all:		$(BIN)
 
+install:
+	curl http://digip.org/jansson/releases/jansson-2.13.tar.bz2 --output jansson-2.13.tar.bz2
+	bunzip2 -c jansson-2.13.tar.bz2 | tar xf -
+	cd jansson-2.13
+	./configure
+	make
+	make check
+	make install
+
 $(BIN): 	main.o profile.o request.o game_history.o
 	gcc $(CFLAGS) $^ -o $@ -lcurl -ljansson
 

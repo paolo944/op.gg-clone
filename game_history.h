@@ -9,6 +9,11 @@
 #define URL_SIZE     300
 #define API_H       "/ids?start=0&count=20&api_key="
 
-int get_game_history(char *puuid, char ***games);
+typedef struct games{
+    char **liste;
+    int taille;
+} Games;
+
+Games *get_game_history(char *puuid);
 
 #endif

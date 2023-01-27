@@ -1,6 +1,6 @@
 #include "game_history.h"
 
-int get_game_history(char *puuid, char ***games){
+Games *get_game_history(char *puuid){
     char url[URL_SIZE] = "";
 
     json_t *root;
@@ -14,7 +14,7 @@ int get_game_history(char *puuid, char ***games){
     char *text = request(&url);
 
     if(!text)
-        return -1;
+        return NULL;
 
     root = json_loads(text, 0, &error);
 
@@ -22,47 +22,24 @@ int get_game_history(char *puuid, char ***games){
 
     if(!root){
             fprintf(stderr, "error: on line %d: %s\n", error.line, error.text);
-            return -1;
+            return NULL;
     }
 
 
     if(!json_is_array(root)){
         fprintf(stderr, "error: is not an array\n");
         json_decref(root);
-        return -1;
+        return NULL;
     }
 
     int taille = json_array_size(root);
-
-    char **tmp = (char**)realloc(*games, taille*sizeof(char*));
-
-    if(tmp == NULL){
-        fprintf(stderr, "erreur d'allocation\n");
-        free(tmp);
-        return -1;
-    }
-
-
-    for (int i = 0; i < taille; i++){
-        tmp[i] = (char*)malloc(16);
-        if(tmp[i] == NULL){
-            fprintf(stderr, "erreur d'allocation\n");
-            return -1;
-        }
-        printf("sizeof tmp[%d] %p: %ld\n",i ,&tmp[i], sizeof(tmp[i]));
-        //printf("sizeof *games[%d] %p: %ld\n",i ,games[i], sizeof(*games[i]));
-    }
-
+    
     for(int i=0; i<taille; i++){
-        tmp[i] = json_string_value(json_array_get(root, i));
-        if(tmp[i] == NULL)
-            printf("c'est null\n");
-        printf("%s\n", (tmp[i]));
+        games->liste[i] = json_string_value(json_array_get(root, i));
+        printf("%s\t%p\n", games->liste[i], &(games->liste[i]));
     }
-
-    *games = tmp;
 
     json_decref(root);
 
-    return taille;
+    return;
 }

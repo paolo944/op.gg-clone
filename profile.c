@@ -13,6 +13,8 @@ char *afficher_profile(const char *nom){
     strcat(url, API_H);
     strcat(url, API);
 
+    //printf("%s\n", url);
+
     text = request(&url);
     if(!text)
         return NULL;
