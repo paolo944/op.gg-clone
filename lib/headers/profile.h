@@ -6,8 +6,8 @@
 #include "api.h"
 
 #define URL_FORMAT   "https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/"
-#define URL_SIZE     256
 #define API_H        "?api_key="
+#define URL_SIZE     256
 
 char *afficher_profile(const char *nom);
 

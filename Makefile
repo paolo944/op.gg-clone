@@ -12,7 +12,7 @@ install:
 	make check
 	make install
 
-$(BIN): 	obj/main.o obj/profile.o obj/request.o obj/game_history.o
+$(BIN): 	obj/main.o obj/profile.o obj/request.o obj/game_history.o obj/stats.o
 	gcc $(CFLAGS) $^ -o $@ -lcurl -ljansson
 
 obj/main.o:		main.c lib/headers/profile.h 
@@ -22,6 +22,9 @@ obj/profile.o:	lib/profile.c lib/headers/profile.h lib/headers/request.h
 	gcc $(CFLAGS) -c $< -o $@
 
 obj/game_history.o:	lib/game_history.c lib/headers/game_history.h lib/headers/request.h
+	gcc $(CFLAGS) -c $< -o $@
+
+obj/stats.o:	lib/stats.c lib/headers/stats.h lib/headers/request.h
 	gcc $(CFLAGS) -c $< -o $@
 
 obj/request.o:	lib/request.c lib/headers/request.h

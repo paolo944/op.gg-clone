@@ -6,8 +6,8 @@
 #include "api.h"
 
 #define URL_FORMAT  "https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/"
-#define URL_SIZE     300
 #define API_H       "/ids?start=0&count=20&api_key="
+#define URL_SIZE     300
 
 typedef struct games{
     char **liste;

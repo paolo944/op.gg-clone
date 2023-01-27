@@ -27,7 +27,7 @@ char *afficher_profile(const char *nom){
             return NULL;
     }
 
-        json_t *id, *accountId, *puuid, *name, *profileIconId, *revisionDate, *summonerLevel;
+    json_t *id, *accountId, *puuid, *name, *profileIconId, *revisionDate, *summonerLevel;
 
     if(!json_is_object(root)){
         fprintf(stderr, "error: is not an object\n");

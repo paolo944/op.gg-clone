@@ -1,5 +1,6 @@
 #include "lib/headers/profile.h"
 #include "lib/headers/game_history.h"
+#include "lib/headers/stats.h"
 
 
 int main(int argc, char *argv[]){
@@ -15,6 +16,15 @@ int main(int argc, char *argv[]){
     for(int i=0; i<games->taille; i++){
         printf("%s\n", games->liste[i]);
     }
+
+    get_stats_games(games);
+
+    for(int i=0; i<games->taille; i++){
+        free(games->liste[i]);
+    }
+    free(games->liste);
+    free(games);
+    free(puuid);
 
     return 0;
 }
