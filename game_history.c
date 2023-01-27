@@ -21,8 +21,8 @@ Games *get_game_history(char *puuid){
     free(text);
 
     if(!root){
-            fprintf(stderr, "error: on line %d: %s\n", error.line, error.text);
-            return NULL;
+        fprintf(stderr, "error: on line %d: %s\n", error.line, error.text);
+        return NULL;
     }
 
 
@@ -33,13 +33,42 @@ Games *get_game_history(char *puuid){
     }
 
     int taille = json_array_size(root);
+
+    Games *games = (Games*)malloc(sizeof(Games));
+    if(games == NULL){
+        free(games);
+        fprintf(stderr, "erreur d'allocation games\n");
+        return NULL;
+    }
+
+    games->liste = (char**)malloc(sizeof(char*)*taille);
+    if(games->liste == NULL){
+        free(games->liste);
+        free(games);
+        fprintf(stderr, "erreur d'allocation games->liste\n");
+        return NULL;
+    }
     
     for(int i=0; i<taille; i++){
-        games->liste[i] = json_string_value(json_array_get(root, i));
-        printf("%s\t%p\n", games->liste[i], &(games->liste[i]));
+        games->liste[i] = (char*)malloc(sizeof(char)*16);
+        if(games->liste[i] == NULL){
+            for(int j=0; j<=i; j++){
+                free(games->liste[j]);
+            }
+            free(games->liste);
+            free(games);
+            fprintf(stderr, "erreur d'allocation games->liste[i]\n");
+            return NULL;
+        }
+    }
+
+    games->taille = taille;
+
+    for(int i=0; i<taille; i++){
+        strcpy(games->liste[i], json_string_value(json_array_get(root, i)));
     }
 
     json_decref(root);
 
-    return;
+    return games;
 }
