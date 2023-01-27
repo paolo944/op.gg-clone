@@ -12,20 +12,20 @@ install:
 	make check
 	make install
 
-$(BIN): 	main.o profile.o request.o game_history.o
+$(BIN): 	obj/main.o obj/profile.o obj/request.o obj/game_history.o
 	gcc $(CFLAGS) $^ -o $@ -lcurl -ljansson
 
-main.o:		main.c profile.h 
-	gcc $(CFLAGS) -c main.c
+obj/main.o:		main.c lib/headers/profile.h 
+	gcc $(CFLAGS) -c $< -o $@
 
-profile.o:	profile.c profile.h request.h
-	gcc $(CFLAGS) -c profile.c
+obj/profile.o:	lib/profile.c lib/headers/profile.h lib/headers/request.h
+	gcc $(CFLAGS) -c $< -o $@
 
-game_history.o:	game_history.c game_history.h request.h
-	gcc $(CFLAGS) -c game_history.c
+obj/game_history.o:	lib/game_history.c lib/headers/game_history.h lib/headers/request.h
+	gcc $(CFLAGS) -c $< -o $@
 
-request.o:	request.c request.h
-	gcc $(CFLAGS) -c request.c
+obj/request.o:	lib/request.c lib/headers/request.h
+	gcc $(CFLAGS) -c $< -o $@
 
 clean:
-	$(RM) -rf $(BIN) *.o
+	$(RM) -rf $(BIN) bin/*.o

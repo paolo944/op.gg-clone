@@ -1,4 +1,4 @@
-#include "profile.h"
+#include "headers/profile.h"
 
 char *afficher_profile(const char *nom){
 

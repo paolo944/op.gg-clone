@@ -1,5 +1,5 @@
-#include "profile.h"
-#include "game_history.h"
+#include "lib/headers/profile.h"
+#include "lib/headers/game_history.h"
 
 
 int main(int argc, char *argv[]){

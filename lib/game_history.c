@@ -1,4 +1,4 @@
-#include "game_history.h"
+#include "headers/game_history.h"
 
 Games *get_game_history(char *puuid){
     char url[URL_SIZE] = "";
