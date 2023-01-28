@@ -85,8 +85,8 @@ char *afficher_profile(const char *nom){
     }
 
     printf("summoner name: %s\nsummoner level: %lld\n", json_string_value(name), json_integer_value(summonerLevel));
-    printf("puuid: %s\nicone de profil: %lld\n", json_string_value(puuid), json_integer_value(profileIconId));
-    printf("id: %s\naccount id: %s  \n", json_string_value(id), json_string_value(accountId));
+    //printf("puuid: %s\nicone de profil: %lld\n", json_string_value(puuid), json_integer_value(profileIconId));
+    // printf("id: %s\naccount id: %s  \n", json_string_value(id), json_string_value(accountId));
 
     char *puuid_str = (char*)(malloc(sizeof(char)*(strlen(json_string_value(puuid)) + 1)));
     strcpy(puuid_str, json_string_value(puuid));
